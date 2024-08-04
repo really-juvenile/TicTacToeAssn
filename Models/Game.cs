@@ -20,22 +20,41 @@ namespace TicTacToeAssn.Models
             {
                 PrintBoard();
                 Console.WriteLine($"Player {currentPlayer}, enter your move (1-9):");
-                int move = Convert.ToInt32(Console.ReadLine()) - 1;
+                bool validMove = false;
+                int move = -1;
 
-                if (board[move] == ' ')
+                while (!validMove)
                 {
-                    board[move] = currentPlayer;
-                    moveCount++;
-                    gameWon = CheckWin();
+                    string input = Console.ReadLine();
+                    if (int.TryParse(input, out move))
+                    {
+                        move--; // Adjust for 0-based index
 
-                    if(!gameWon)
-                        SwitchPlayer();
+                        if (move >= 0 && move < 9 && board[move] == ' ')
+                        {
+                            validMove = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid move, try again. Enter a number for an empty cell.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input, please enter a number between 1 and 9.");
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("Invalid move, try again.");
-                }
+
+                board[move] = currentPlayer;
+                moveCount++;
+                gameWon = CheckWin();
+
+                if (!gameWon)
+                    SwitchPlayer();
             }
+
+            
+
 
 
 
