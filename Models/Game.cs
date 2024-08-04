@@ -28,7 +28,7 @@ namespace TicTacToeAssn.Models
                     string input = Console.ReadLine();
                     if (int.TryParse(input, out move))
                     {
-                        move--; // Adjust for 0-based index
+                        move--; 
 
                         if (move >= 0 && move < 9 && board[move] == ' ')
                         {
